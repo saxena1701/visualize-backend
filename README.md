@@ -1,17 +1,20 @@
 # Project Title
 
 Movement Logistics Visualizer
+(This is the repository containing the source code for the backend. For the frontend, the source code can be found here: github.com/saxena1701/visualize-frontend)
 
 ## Description
-
 This application visualizes the spatial movement logistics across the map. It allows loading of the data from the CSV files placed in the directory - movement.csv and population.csv. The application also allows addition of data through the web interface. 
 To import data via new files, ensure that the files are in a similar format as the ones given in the repository and replace them in the project directory.
 
 # Technology Stack
 
 The project uses React (TypeScript) for the front end, Flask(Python) as the backend, and PostgreSQL as the database.
-The application is containerized on Docker for easy replication of the environment and deployment.
-For map visualizations, React Leaflet library is used.
+The application is containerized on Docker for easy environment replication and deployment.
+For map visualizations, the React Leaflet library is used.
+
+The deployment uses a Docker Image for backend and PostgreSQL services running on Render. Frontend for the application is deployed on Vercel.
+ 
 
 ### Installing
 
