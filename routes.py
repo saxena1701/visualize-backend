@@ -6,11 +6,6 @@ from flask_jwt_extended import JWTManager,jwt_required
 routes = Blueprint('routes',__name__)
 
 
-# @routes.route('/ping')
-# def pong():
-#     return "test response"
-
-
 @routes.route('/api/population_records',methods=['GET','POST'])
 @jwt_required()
 def population_records():
@@ -39,6 +34,7 @@ def population_records():
         except Exception as e:
             db.session.rollback()
             return jsonify({"error": str(e)}), 500
+
 
 @routes.route('/api/movement_records',methods=['GET','POST'])
 @jwt_required()
