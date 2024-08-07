@@ -4,15 +4,23 @@ from config import Config
 from models import db,Population,Movement,User
 from data_load import load_movement_data,load_population_data
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from redis import Redis
 from routes import routes 
 from auth_routes  import auth_routes
 import os
+
+redis = Redis.from_url(Config.REDIS_URI,ssl_cert_reqs=None)
+# redis = Redis(host='localhost',port=6379,db=0)
+
+
+redis.ping()
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
 
 app.register_blueprint(routes)
 app.register_blueprint(auth_routes)
+
 db.init_app(app)
 
 jwt=JWTManager(app)
@@ -24,6 +32,12 @@ def check_db():
         return True
     
     return False
+
+# @app.route('/')
+# def redis_test_route():
+#     redis.incr('hits')
+#     counter = str(redis.get('hits'),'utf-8')
+#     return "Welcome to this webapage!, This webpage has been viewed "+counter+" time(s)"
 
 
 with app.app_context():

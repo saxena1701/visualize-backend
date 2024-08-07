@@ -1,19 +1,27 @@
 from flask import request,jsonify,Blueprint
 from models import Population,Movement,db,User
 from flask_jwt_extended import JWTManager,jwt_required
-
-
+import json
 routes = Blueprint('routes',__name__)
-
 
 @routes.route('/api/population_records',methods=['GET','POST'])
 @jwt_required()
-def population_records():
+def get_population_records():
+    from main import redis
     
     if request.method == 'GET':
+
         try:
+            cached_response = redis.get('population_records')
+            if cached_response:
+                return jsonify(json.loads(cached_response))
+
+
             population_records = Population.query.all()
-            return jsonify([population.to_dict() for population in population_records]),200
+            population_records_serialized = json.dumps([population.to_dict() for population in population_records])
+            redis.set('population_records', population_records_serialized, ex=300)
+
+            return jsonify(json.loads(population_records_serialized)), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 500
     
@@ -28,6 +36,8 @@ def population_records():
             db.session.add(new_population_record)
             db.session.commit()
 
+            redis.delete('population_records')
+
             return jsonify({
                 'response' : "population record added successfully",
             }), 201
@@ -39,11 +49,17 @@ def population_records():
 @routes.route('/api/movement_records',methods=['GET','POST'])
 @jwt_required()
 def movement_records():
+    from main import redis
 
     if request.method == 'GET':
         try:
+            cached_response = redis.get('movement_records')
+            if cached_response:
+                return jsonify(json.loads(cached_response))
             movement_records = Movement.query.all()
-            return jsonify([movement.to_dict() for movement in movement_records]),200
+            movement_records_serialized = json.dumps([movement.to_dict() for movement in movement_records])
+            redis.set('movement_records', movement_records_serialized,ex=300)
+            return jsonify(json.loads((movement_records_serialized))),200
         except:
             return jsonify({"error": str(e)}), 500
 
@@ -93,6 +109,7 @@ def movement_records():
             )
             db.session.add(new_movement)
             db.session.commit()
+            redis.delete('movement_records')
             return jsonify({"message": "New movement added successfully!"}), 201
         except Exception as e:
             db.session.rollback()
