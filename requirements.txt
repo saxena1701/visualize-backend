@@ -6,3 +6,4 @@ flask-cors
 werkzeug
 flask-jwt-extended
 marshmallow
+redis
