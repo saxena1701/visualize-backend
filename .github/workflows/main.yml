@@ -10,10 +10,10 @@ on:
       - main
 
 jobs:
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Configure AWS credentials
@@ -22,12 +22,6 @@ jobs:
           role-to-assume: arn:aws:iam::851725555807:role/Github-Actions-EC2
           role-session-name: samplerolesession
           aws-region: us-east-1
-
-  terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
