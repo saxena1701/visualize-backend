@@ -13,7 +13,7 @@ The project uses React (TypeScript) for the front end, Flask(Python) as the back
 The application is containerized on Docker for easy environment replication and deployment.
 For map visualizations, the React Leaflet library is used.
 
-The deployment uses a Docker Image for the backend and PostgreSQL and Redis services running on Render. Frontend for the application is deployed on Vercel.
+The deployment uses a Docker Image for the backend and PostgreSQL and Redis services running on Render. Frontend for the application is deployed on Vercel. A Jenkins CI pipeline and GitHub Webhook is used for trakcing changes to github repository and triggering docker images build and puhsing them to DockerHub.
  
 
 ### Installing
