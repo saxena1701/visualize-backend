@@ -7,3 +7,4 @@ werkzeug
 flask-jwt-extended
 marshmallow
 redis
+python-dotenv
