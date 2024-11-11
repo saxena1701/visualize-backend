@@ -33,11 +33,9 @@ def check_db():
     
     return False
 
-# @app.route('/')
-# def redis_test_route():
-#     redis.incr('hits')
-#     counter = str(redis.get('hits'),'utf-8')
-#     return "Welcome to this webapage!, This webpage has been viewed "+counter+" time(s)"
+@app.route('/')
+def healthcheck():
+    return "Application up and running"
 
 
 with app.app_context():
