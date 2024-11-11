@@ -45,6 +45,8 @@ http://localhost:3000
 Check the docker application if you encounter any issues in running the application.
 If the backend does not start via the docker-compose script, just restart the container again through docker, or retype the docker-compose command in the terminal again.
 
+## Cloud Setup on AWS
+
 ## Authors
 
 Contributors names and contact info
