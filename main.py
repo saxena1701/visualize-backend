@@ -33,9 +33,9 @@ def check_db():
     
     return False
 
-@app.route('/')
-def healthcheck():
-    return "Application up and running"
+# @app.route('/')
+# def healthcheck():
+#     return "Application up and running"
 
 
 with app.app_context():

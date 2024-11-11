@@ -46,6 +46,10 @@ def get_population_records():
             return jsonify({"error": str(e)}), 500
 
 
+@routes.route('/api/healthcheck',methods=['GET'])
+def healthcheck():
+    return "Health check successful"
+
 @routes.route('/api/movement_records',methods=['GET','POST'])
 @jwt_required()
 def movement_records():
